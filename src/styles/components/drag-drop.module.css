@@ -1,0 +1,38 @@
+  .DnDContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 1.5vmin);
+  }
+  
+  .list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .list li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 2px #d0d0d0;
+    border-radius: .2em;
+    padding: .5em .8em .5em .5em;
+    margin-bottom: 1em;
+  }
+  
+  .list p {
+    max-width: none;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .fullname {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fullname span {
+    margin: 0 5px;
+  }
