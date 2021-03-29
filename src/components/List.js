@@ -7,9 +7,9 @@ import { ListContext } from '../contexts/ListContext'
 
 
 export function List() {
-    const { list, updateList } = useContext(ListContext)
+    const { list, updateList, AddListField, AddNameField } = useContext(ListContext)
 
-    function handleOnDragEnd(result) {
+    function OnDragEndList(result) {
         if (!result.destination) return;
         const items = Array.from(list);
 
@@ -20,55 +20,50 @@ export function List() {
     }
 
     return (
-        <div>
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-                <Droppable droppableId="List" direction="horizontal">
-                    {(provided) => (
-                        <div>
+        <DragDropContext onDragEnd={OnDragEndList}>
+            <Droppable droppableId="List" direction="horizontal">
+                {(provided) => (
+                    <div>
+                        <div className={styles.addField}>
                             <h1>Ordene as listas</h1>
-                            <div
-                                className={styles.listContainer}
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-                                {list.map(({ id }, index) => {
-                                    function AddField() {
-                                        const newName = Array.from(list)
-                                        newName[index].names.push('')
-                                        updateList(newName)
-                                    }
-
-                                    return (
-                                        <Draggable key={id} draggableId={id} index={index}>
-                                            {(provided) => (
-                                                <div
-                                                    className={styles.list}
-                                                    id={index} ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                >
-                                                    <span {...provided.dragHandleProps}>
-                                                        <img src="/handle.svg" alt="" />
-                                                    </span>
-                                                    <div className={styles.addField}>
-                                                        <h2>Lista {id}</h2>
-                                                        <button onClick={AddField}>
-                                                            <img src="/add.svg" alt="" />
-                                                        </button>
-                                                    </div>
-                                                    <ListItems listSelector={index} />
-                                                </div>
-                                            )}
-                                        </Draggable>
-                                    );
-                                })}
-                                {provided.placeholder}
-                            </div>
+                            <button onClick={AddListField}>
+                                <img src="/add.svg" alt="" />
+                            </button>
                         </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
-        </div>
-
-
+                        <div
+                            className={styles.listContainer}
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                        >
+                            {list.map(({ id }, index) => {
+                                return (
+                                    <Draggable key={id} draggableId={id} index={index}>
+                                        {(provided) => (
+                                            <div
+                                                className={styles.list}
+                                                id={index} ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                            >
+                                                <span {...provided.dragHandleProps}>
+                                                    <img src="/handle.svg" alt="" />
+                                                </span>
+                                                <div className={styles.addField}>
+                                                    <h2>Lista {id}</h2>
+                                                    <button onClick={() => AddNameField(index)}>
+                                                        <img src="/add.svg" alt="" />
+                                                    </button>
+                                                </div>
+                                                <ListItems listSelector={index} />
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                );
+                            })}
+                            {provided.placeholder}
+                        </div>
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
     )
 }
