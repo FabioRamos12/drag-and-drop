@@ -1,0 +1,10 @@
+.namesContainer div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .namesContainer span {
+    margin: 1.5px 5px;
+    font: 400 25px Arial;
+  }

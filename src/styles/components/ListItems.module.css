@@ -1,0 +1,46 @@
+.list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: solid 2px #d0d0d0;
+    border-radius: 5px;
+    padding: 20px 20px;
+    margin-bottom: 1em;
+    width: 360px;
+  }
+  
+  .list input {
+    text-align: center;
+    max-width: none;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0;
+    background: white;
+    width: 300px;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
+
+  .list span {
+    font: 600 20px Arial;
+    text-align: center;
+    width: 300px;
+  }
+
+  .list li button{
+    border: 0;
+    background: white;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+
+  .list li button img {
+    width: 25px;
+  }
+
+  input:focus,
+  button:focus{
+    outline: none;
+  }

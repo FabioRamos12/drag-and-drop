@@ -1,0 +1,39 @@
+h1 {
+  padding: 30px;
+}
+
+.listContainer {
+    display: flex;
+    flex-direction: row;
+}
+  
+.list {
+    list-style: none;
+    border: solid 2px #d0d0d0;
+    border-radius: 5px;
+    padding: 20px 20px;
+    margin: 0 10px;
+}
+
+.addField {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.addField button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    padding: 3px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.addField button img {
+    width: 15px;
+}
