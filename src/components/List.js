@@ -1,24 +1,13 @@
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { useState } from 'react'
+import { useContext } from 'react'
 import ListItems from "./ListItems"
 import styles from '../styles/components/List.module.css'
-import { ShowNames } from './ShowNames'
+import { ListContext } from '../contexts/ListContext'
 
-const DndList = [
-    {
-        id: '1',
-        names: ['']
-    },
 
-    {
-        id: '2',
-        names: ['']
-    },
-
-]
 
 export function List() {
-    const [list, updateList] = useState(DndList);
+    const { list, updateList } = useContext(ListContext)
 
     function handleOnDragEnd(result) {
         if (!result.destination) return;
@@ -32,7 +21,6 @@ export function List() {
 
     return (
         <div>
-            <ShowNames list={list} />
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="List" direction="horizontal">
                     {(provided) => (
@@ -67,7 +55,7 @@ export function List() {
                                                             <img src="/add.svg" alt="" />
                                                         </button>
                                                     </div>
-                                                    <ListItems listSelector={index} list={list} updateList={updateList} />
+                                                    <ListItems listSelector={index} />
                                                 </div>
                                             )}
                                         </Draggable>

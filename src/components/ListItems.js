@@ -1,18 +1,22 @@
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import styles from '../styles/components/ListItems.module.css'
+import { useContext } from 'react'
+import { ListContext } from '../contexts/ListContext'
+
 
 export default function ListItems(props) {
+    const { list, updateList } = useContext(ListContext)
     const listSelector = props.listSelector
-    const listNames = props.list[listSelector]
+    const Names = list[listSelector].names
 
     function OnDragEnd(result) {
         if (!result.destination) return;
-        const items = Array.from(props.list);
+        const items = Array.from(list);
 
         const [reorderedItem] = items[listSelector].names.splice(result.source.index, 1);
         items[listSelector].names.splice(result.destination.index, 0, reorderedItem);
 
-        props.updateList(items);
+        updateList(items);
     }
 
     return (
@@ -24,15 +28,15 @@ export default function ListItems(props) {
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                     >
-                        {listNames.names.map(({ name }, index) => {
+                        {Names.map(({ name }, index) => {
                             function editField() {
-                                const input = document.getElementById(`input-${listSelector}${index}${listNames.names[index]}`)
-                                const span = document.getElementById(`span-${listSelector}${index}${listNames.names[index]}`)
-                                const img = document.getElementById(`img-${listSelector}${index}${listNames.names[index]}`)
+                                const input = document.getElementById(`input-${listSelector}${index}${Names[index]}`)
+                                const span = document.getElementById(`span-${listSelector}${index}${Names[index]}`)
+                                const img = document.getElementById(`img-${listSelector}${index}${Names[index]}`)
                                 if (input.type === "hidden") {
                                     span.setAttribute("hidden", "hidden")
                                     input.setAttribute("type", "text")
-                                    input.value = listNames.names[index]
+                                    input.value = Names[index]
                                     img.setAttribute("src", "/save.svg")
                                 }
                                 else {
@@ -40,12 +44,12 @@ export default function ListItems(props) {
                                     span.removeAttribute("hidden")
                                     img.setAttribute("src", "/edit.svg")
 
-                                    const newList = Array.from(props.list)
-                                    const newNames = Array.from(listNames.names)
+                                    const newList = Array.from(list)
+                                    const newNames = Array.from(Names)
                                     newNames.splice(index, 1, input.value)
                                     newList[listSelector].names = newNames
 
-                                    props.updateList(newList)
+                                    updateList(newList)
                                 }
 
                             }
@@ -59,12 +63,12 @@ export default function ListItems(props) {
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                         >
-                                            <span id={`span-${listSelector}${index}${listNames.names[index]}`}>
-                                                {listNames.names[index]}
+                                            <span id={`span-${listSelector}${index}${Names[index]}`}>
+                                                {Names[index]}
                                             </span>
-                                            <input id={`input-${listSelector}${index}${listNames.names[index]}`} type="hidden" />
+                                            <input id={`input-${listSelector}${index}${Names[index]}`} type="hidden" />
                                             <button onClick={editField}>
-                                                <img id={`img-${listSelector}${index}${listNames.names[index]}`} src="/edit.svg" alt="" />
+                                                <img id={`img-${listSelector}${index}${Names[index]}`} src="/edit.svg" alt="" />
                                             </button>
                                         </li>
                                     )}
