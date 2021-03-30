@@ -7,21 +7,12 @@ import { ListContext } from '../contexts/ListContext'
 
 
 export function List() {
-    const { list, updateList, AddListField, AddNameField } = useContext(ListContext)
+    const { list, OnDragEnd, AddListField, AddNameField } = useContext(ListContext)
 
-    function OnDragEndList(result) {
-        if (!result.destination) return;
-        const items = Array.from(list);
-
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-
-        updateList(items);
-    }
 
     return (
-        <DragDropContext onDragEnd={OnDragEndList}>
-            <Droppable droppableId="List" direction="horizontal">
+        <DragDropContext onDragEnd={OnDragEnd}>
+            <Droppable droppableId="List" direction="horizontal" type="LIST" >
                 {(provided) => (
                     <div>
                         <div className={styles.addField}>
@@ -37,7 +28,10 @@ export function List() {
                         >
                             {list.map(({ id }, index) => {
                                 return (
-                                    <Draggable key={id} draggableId={id} index={index}>
+                                    <Draggable
+                                        key={id}
+                                        draggableId={id}
+                                        index={index}>
                                         {(provided) => (
                                             <div
                                                 className={styles.list}
@@ -48,7 +42,7 @@ export function List() {
                                                     <img src="/handle.svg" alt="" />
                                                 </span>
                                                 <div className={styles.addField}>
-                                                    <h2>Lista {id}</h2>
+                                                    <h2>Lista {`${index + 1}`}</h2>
                                                     <button onClick={() => AddNameField(index)}>
                                                         <img src="/add.svg" alt="" />
                                                     </button>

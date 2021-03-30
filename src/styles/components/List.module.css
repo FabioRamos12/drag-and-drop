@@ -5,6 +5,9 @@ h1 {
 .listContainer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
     width: 1272px;
 }
   
@@ -13,7 +16,9 @@ h1 {
     border: solid 2px #d0d0d0;
     border-radius: 5px;
     padding: 20px 20px;
-    margin: 0 10px;
+    margin: 0 10px 20px;
+    width: 350px;
+    min-height: 235px;
 }
 
 .addField {

@@ -1,42 +1,81 @@
 import { createContext, useState } from 'react'
 
-
 export const ListContext = createContext()
 
 export function ListProvider({ children }) {
     const DndList = [
         {
-            id: '1',
-            names: ['']
+            id: 'column-1',
+            items: []
         },
     ]
-    const [list, updateList] = useState(DndList);
+    const [list, setList] = useState(DndList);
+    const [nameNumber, setNameNumber] = useState(1)
+
+    function OnDragEnd(result) {
+        if (!result.destination) return;
+        const mainList = Array.from(list);
+        if (result.type === "LIST") {
+            const [reorderedItem] = mainList.splice(result.source.index, 1);
+            mainList.splice(result.destination.index, 0, reorderedItem);
+
+            setList(mainList);
+        } else {
+            if (result.source.droppableId === result.destination.droppableId) {
+                const listSelector = result.source.droppableId.substr(7, 1)
+                const itemsList = mainList[listSelector - 1].items
+
+                const [sourceItem] = itemsList.splice(result.source.index, 1);
+                itemsList.splice(result.destination.index, 0, sourceItem);
+
+                mainList[listSelector - 1].items = itemsList
+
+                setList(mainList);
+            } else {
+                const sourceListSelector = result.source.droppableId.substr(7, 1)
+                const destinationListSelector = result.destination.droppableId.substr(7, 1)
+
+                const [sourceItem] = mainList[sourceListSelector - 1].items.splice(result.source.index, 1)
+                mainList[destinationListSelector - 1].items.splice(result.destination.index, 0, sourceItem)
+
+                setList(mainList)
+            }
+
+        }
+
+    }
+
 
     function AddListField() {
-        const newName = Array.from(list)
+        const newList = Array.from(list)
         const clone = {
-            id: String(newName.length + 1),
-            names: ['']
+            id: "column-" + (newList.length + 1),
+            items: []
         }
-        newName.push(clone)
-        updateList(newName)
+        newList.push(clone)
+        setList(newList)
     }
 
     function AddNameField(index) {
         const newName = Array.from(list)
-        newName[index].names.push('')
-        updateList(newName)
+        const clone = {
+            id: "name-" + nameNumber,
+            name: ''
+        }
+        newName[index].items.push(clone)
+        setList(newName)
+        setNameNumber(nameNumber + 1)
     }
 
     function editField(index, listSelector) {
-        const names = list[listSelector].names
-        const input = document.getElementById(`input-${listSelector}${index}${names[index]}`)
-        const span = document.getElementById(`span-${listSelector}${index}${names[index]}`)
-        const img = document.getElementById(`img-${listSelector}${index}${names[index]}`)
+        const items = list[listSelector].items
+        const input = document.getElementById(`input-${listSelector}${index}${items[index].name}`)
+        const span = document.getElementById(`span-${listSelector}${index}${items[index].name}`)
+        const img = document.getElementById(`img-${listSelector}${index}${items[index].name}`)
         if (input.type === "hidden") {
             span.setAttribute("hidden", "hidden")
             input.setAttribute("type", "text")
-            input.value = names[index]
+            input.value = items[index].name
             img.setAttribute("src", "/save.svg")
         }
         else {
@@ -44,12 +83,10 @@ export function ListProvider({ children }) {
             span.removeAttribute("hidden")
             img.setAttribute("src", "/edit.svg")
 
-            const newList = Array.from(list)
-            const newNames = Array.from(names)
-            newNames.splice(index, 1, input.value)
-            newList[listSelector].names = newNames
+            const editList = Array.from(list)
+            editList[listSelector].items[index].name = input.value
 
-            updateList(newList)
+            setList(editList)
         }
 
     }
@@ -58,7 +95,7 @@ export function ListProvider({ children }) {
         <ListContext.Provider
             value={{
                 list,
-                updateList,
+                OnDragEnd,
                 AddListField,
                 AddNameField,
                 editField
