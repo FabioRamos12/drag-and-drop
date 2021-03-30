@@ -9,7 +9,6 @@ import { ListContext } from '../contexts/ListContext'
 export function List() {
     const { list, OnDragEnd, AddListField, AddNameField } = useContext(ListContext)
 
-
     return (
         <DragDropContext onDragEnd={OnDragEnd}>
             <Droppable droppableId="List" direction="horizontal" type="LIST" >
@@ -42,7 +41,7 @@ export function List() {
                                                     <img src="/handle.svg" alt="" />
                                                 </span>
                                                 <div className={styles.addField}>
-                                                    <h2>Lista {`${index + 1}`}</h2>
+                                                    <h2>Lista</h2>
                                                     <button onClick={() => AddNameField(index)}>
                                                         <img src="/add.svg" alt="" />
                                                     </button>

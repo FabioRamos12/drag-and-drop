@@ -3,12 +3,7 @@ import { createContext, useState } from 'react'
 export const ListContext = createContext()
 
 export function ListProvider({ children }) {
-    const DndList = [
-        {
-            id: 'column-1',
-            items: []
-        },
-    ]
+    const DndList = []
     const [list, setList] = useState(DndList);
     const [nameNumber, setNameNumber] = useState(1)
 
@@ -16,13 +11,19 @@ export function ListProvider({ children }) {
         if (!result.destination) return;
         const mainList = Array.from(list);
         if (result.type === "LIST") {
-            const [reorderedItem] = mainList.splice(result.source.index, 1);
-            mainList.splice(result.destination.index, 0, reorderedItem);
+            const lengh = mainList.length
+            const [sourceItem] = mainList.splice(result.source.index, 1);
+            mainList.splice(result.destination.index, 0, sourceItem);
+
+            for (var i = 0; i < lengh; i++) {
+                const listId = "list-" + (i + 1)
+                mainList[i].id = listId
+            }
 
             setList(mainList);
         } else {
             if (result.source.droppableId === result.destination.droppableId) {
-                const listSelector = result.source.droppableId.substr(7, 1)
+                const listSelector = result.source.droppableId.substr(5, 1)
                 const itemsList = mainList[listSelector - 1].items
 
                 const [sourceItem] = itemsList.splice(result.source.index, 1);
@@ -32,24 +33,21 @@ export function ListProvider({ children }) {
 
                 setList(mainList);
             } else {
-                const sourceListSelector = result.source.droppableId.substr(7, 1)
-                const destinationListSelector = result.destination.droppableId.substr(7, 1)
+                const sourceListSelector = result.source.droppableId.substr(5, 1)
+                const destinationListSelector = result.destination.droppableId.substr(5, 1)
 
                 const [sourceItem] = mainList[sourceListSelector - 1].items.splice(result.source.index, 1)
                 mainList[destinationListSelector - 1].items.splice(result.destination.index, 0, sourceItem)
 
                 setList(mainList)
             }
-
         }
-
     }
-
 
     function AddListField() {
         const newList = Array.from(list)
         const clone = {
-            id: "column-" + (newList.length + 1),
+            id: "list-" + (newList.length + 1),
             items: []
         }
         newList.push(clone)
@@ -88,7 +86,6 @@ export function ListProvider({ children }) {
 
             setList(editList)
         }
-
     }
 
     return (
@@ -104,5 +101,4 @@ export function ListProvider({ children }) {
             {children}
         </ListContext.Provider>
     )
-
 }
