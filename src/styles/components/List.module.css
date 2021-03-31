@@ -12,13 +12,23 @@ h1 {
 }
   
 .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     list-style: none;
     border: solid 2px #d0d0d0;
     border-radius: 5px;
     padding: 20px 20px;
     margin: 0 10px 20px;
-    width: 350px;
-    min-height: 235px;
+    width: 375px;
+
+}
+
+.deleteButton {
+    float: right;
+    border: 0;
+    background: white;
+    cursor: pointer;
 }
 
 .addField {
@@ -43,3 +53,4 @@ h1 {
 .addField button img {
     width: 15px;
 }
+

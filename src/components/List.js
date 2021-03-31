@@ -7,7 +7,7 @@ import { ListContext } from '../contexts/ListContext'
 
 
 export function List() {
-    const { list, OnDragEnd, AddListField, AddNameField } = useContext(ListContext)
+    const { list, OnDragEnd, AddListField, AddNameField, deleteListField } = useContext(ListContext)
 
     return (
         <DragDropContext onDragEnd={OnDragEnd}>
@@ -37,9 +37,13 @@ export function List() {
                                                 id={index} ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                             >
-                                                <span {...provided.dragHandleProps}>
-                                                    <img src="/handle.svg" alt="" />
-                                                </span>
+                                                <div>
+                                                    <img className={styles.handleButton} {...provided.dragHandleProps} src="/handle.svg" alt="" />
+                                                    <button onClick={() => deleteListField(index)} className={styles.deleteButton}>
+                                                        <img src="/delete.svg" alt="" />
+                                                    </button>
+                                                </div>
+
                                                 <div className={styles.addField}>
                                                     <h2>Lista</h2>
                                                     <button onClick={() => AddNameField(index)}>

@@ -5,7 +5,7 @@ import { ListContext } from '../contexts/ListContext'
 
 
 export default function ListItems(props) {
-    const { list, editField } = useContext(ListContext)
+    const { list, editField, deleteNameField } = useContext(ListContext)
     const listSelector = props.listSelector
     const items = list[listSelector].items
 
@@ -36,6 +36,9 @@ export default function ListItems(props) {
                                         <input id={`input-${listSelector}${index}${items[index].name}`} type="hidden" />
                                         <button onClick={() => editField(index, listSelector)}>
                                             <img id={`img-${listSelector}${index}${items[index].name}`} src="/edit.svg" alt="" />
+                                        </button>
+                                        <button onClick={() => deleteNameField(index, listSelector)}>
+                                            <img src="/delete.svg" alt="" />
                                         </button>
                                     </li>
                                 )}

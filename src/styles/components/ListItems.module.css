@@ -23,7 +23,7 @@
   .list span {
     font: 600 20px Arial;
     text-align: center;
-    width: 300px;
+    width: 200px;
   }
 
   .list li button{
@@ -32,11 +32,6 @@
     width: 30px;
     height: 30px;
     cursor: pointer;
-    margin-left: 20px;
-  }
-
-  .list li button img {
-    width: 25px;
   }
 
   input:focus,

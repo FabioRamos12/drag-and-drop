@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M40 18H8v4h32v-4zM8 30h32v-4H8v4z"/></svg>
+<svg width="40" height="20" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_1" d="m36,4l-32,0l0,4l32,0l0,-4zm-32,12l32,0l0,-4l-32,0l0,4z"/>
+ </g>
+</svg>

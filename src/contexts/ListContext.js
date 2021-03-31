@@ -88,6 +88,26 @@ export function ListProvider({ children }) {
         }
     }
 
+    function deleteListField(index) {
+        const deleteItem = Array.from(list)
+        deleteItem.splice(index, 1)
+        const lengh = deleteItem.length
+
+        for (var i = 0; i < lengh; i++) {
+            const listId = "list-" + (i + 1)
+            deleteItem[i].id = listId
+        }
+
+        setList(deleteItem)
+    }
+
+    function deleteNameField(index, listSelector) {
+        const deleteItem = Array.from(list)
+        deleteItem[listSelector].items.splice(index, 1)
+
+        setList(deleteItem)
+    }
+
     return (
         <ListContext.Provider
             value={{
@@ -95,7 +115,9 @@ export function ListProvider({ children }) {
                 OnDragEnd,
                 AddListField,
                 AddNameField,
-                editField
+                editField,
+                deleteNameField,
+                deleteListField
             }}
         >
             {children}
