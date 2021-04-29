@@ -46,7 +46,7 @@ The app will be available for access on your browser at `http://localhost:3000`
 ## :computer: How it works
 
 <p align="center">
-  <img alt="Podcastr" title="#Podcastr" src=".github/drag-drop.gif" width="400px">
+  <img alt="Podcastr" title="#Podcastr" src=".github/drag-drop.gif" width="600px">
 </p>
 
 ---
