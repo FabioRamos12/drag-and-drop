@@ -26,7 +26,7 @@ The project consists in a drag and drop list, with another drag and drop list in
 **Clone the project and access the folder**
 
 ```bash
-$ git clone https://github.com/FabioRamos12/drag-and-drop.git && cd podcastr
+$ git clone https://github.com/FabioRamos12/drag-and-drop.git && cd drag-and-drop
 ```
 
 **Follow the steps below**
@@ -46,7 +46,7 @@ The app will be available for access on your browser at `http://localhost:3000`
 ## :computer: How it works
 
 <p align="center">
-  <img alt="Podcastr" title="#Podcastr" src=".github/drag-drop.gif" width="600px">
+  <img alt="Drag and Drop" title="#Dnd" src=".github/drag-drop.gif" width="600px">
 </p>
 
 ---
